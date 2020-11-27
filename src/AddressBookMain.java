@@ -21,9 +21,12 @@ class bookdetails{
 public class AddressBookMain {
     static ArrayList<String> check=new ArrayList<>();
     public static void main(String[] args) {
+        bookdetails book1=new bookdetails();
         System.out.println("..........Address Book Problem................");
         Scanner sc = new Scanner(System.in);
         HashMap<String, ArrayList> addbook = new HashMap<>();
+        HashMap<String, String> checkcity=new HashMap<>();
+        HashMap<String, String> checkstate=new HashMap<>();
         int var = 1;
         int p = 0;
         while (var == 1) {
@@ -44,7 +47,7 @@ public class AddressBookMain {
                     }
                     System.out.println("Enter Number of person");
                     int personno = sc.nextInt();
-                    bookdetails book1 = new bookdetails();
+                    //bookdetails book1 = new bookdetails();
                     ArrayList<String> check1=new ArrayList<>();
                     contact c1 = new contact();
                     System.out.println("Enter First Name:");
@@ -65,6 +68,8 @@ public class AddressBookMain {
                     c1.email = sc.next();
                     System.out.println("End of contact");
                     book1.addcontact(c1);
+                    checkcity.put(c1.firstname, c1.city);
+                    checkstate.put(c1.firstname,c1.state);
                     check1.add(c1.firstname);
                     if(personno>=2) {
                         for (int i = 0; i < personno-1; i++) {
@@ -93,6 +98,8 @@ public class AddressBookMain {
                             c2.email = sc.next();
                             System.out.println("End of contact");
                             book1.addcontact(c2);
+                            checkcity.put(c2.firstname, c2.city);
+                            checkstate.put(c2.firstname,c2.state);
                             check1.add(c2.firstname);
                         }
                     }
@@ -112,8 +119,17 @@ public class AddressBookMain {
                                     int choose = sc.nextInt();
                                     switch (choose) {
                                         case 1:
-                                            System.out.println("New First Name:");
-                                            book1.viewcontact().get(i).firstname = sc.next();
+                                            int x=1;
+                                            while(x==1) {
+                                                System.out.println("New First Name:");
+                                                book1.viewcontact().get(i).firstname = sc.next();
+                                                if (book1.viewcontact().get(i).firstname.equals(check1.get(i))) {
+                                                    x = 1;
+                                                }
+                                                else
+                                                    x=0;
+                                                    break;
+                                            }
                                             break;
                                         case 2:
                                             System.out.println("New Last Name:");
@@ -178,8 +194,20 @@ public class AddressBookMain {
                     System.out.println("Thank You");
                     var = 0;
                     break;
-
-
+            }
+        }
+        System.out.println("Enter city to search");
+        String citysearch=sc.next();
+        for (Map.Entry<String,String> entry : checkcity.entrySet()){
+            if(entry.getValue().equals(citysearch)){
+                System.out.println(entry.getKey());
+            }
+        }
+        System.out.println("Enter state to search");
+        String statesearch=sc.next();
+        for(Map.Entry<String,String> entry : checkstate.entrySet()){
+            if(entry.getValue().equals(statesearch)){
+                System.out.println(entry.getKey());
             }
         }
     }
