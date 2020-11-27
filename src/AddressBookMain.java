@@ -197,6 +197,7 @@ public class AddressBookMain {
         String citysearch=sc.next();
         for (Map.Entry<String,String> entry : checkcity.entrySet()){
             if(entry.getValue().equals(citysearch)){
+                System.out.println("People in city "+citysearch);
                 System.out.println(entry.getKey());
             }
         }
@@ -204,6 +205,7 @@ public class AddressBookMain {
         String statesearch=sc.next();
         for(Map.Entry<String,String> entry : checkstate.entrySet()){
             if(entry.getValue().equals(statesearch)){
+                System.out.println("People in state "+statesearch);
                 System.out.println(entry.getKey());
             }
         }
