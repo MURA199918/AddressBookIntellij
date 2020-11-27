@@ -42,7 +42,6 @@ public class AddressBookMain {
             System.out.println("Enter the email: ");
             c1.email = sc.next();
             System.out.println("Thank You");
-            bookdetails book1 = new bookdetails();
             book1.addcontact(c1);
         }
 
@@ -50,17 +49,17 @@ public class AddressBookMain {
             System.out.println(book1.viewAllPerson().get(i).firstname);
         }
 
-        System.out.println("Want to edit person details 1.Yes 2.No");
+        System.out.println("Edit or delete person details 1.Edit 2.delete");
         int option = sc.nextInt();
+        System.out.println("Enter fname");
+        String nameofperson = sc.next();
         switch (option) {
             case 1:
-                System.out.println("Enter fname");
-                String nameofperson = sc.next();
-                for (int i = 0; i < book1.viewAllPerson().size(); i++) {
-                    if (nameofperson.equalsIgnoreCase(book1.viewAllPerson().get(i).firstname)) {
-                        System.out.println("1.FirstName" + " " + "2.Lastname" + "  " + "3.Address" + " " + "4.city" + " " + "5.state" + " " + "6.zip" + " " + "7.phone" + " " + "8.email")
+                for(int i=0;i<book1.viewAllPerson().size();i++){
+                    if(nameofperson.equalsIgnoreCase(book1.viewAllPerson().get(i).firstname)){
+                        System.out.println("1.FirstName"+" "+"2.Lastname"+"  "+"3.Address"+" "+"4.city"+" "+"5.state"+" "+"6.zip"+" "+"7.phone"+" "+"8.email");
                         int choose = sc.nextInt();
-                        switch (choose) {
+                        switch(choose) {
                             case 1:
                                 System.out.println("New First Name:");
                                 book1.viewAllPerson().get(i).firstname = sc.next();
@@ -97,12 +96,20 @@ public class AddressBookMain {
                     }
                 }
                 break;
-            case 2:
+            case 2 :
+                for(int i=0;i<book1.viewAllPerson().size();i++){
+                    if(nameofperson.equalsIgnoreCase(book1.viewAllPerson().get(i).firstname)){
+                        book1.viewAllPerson().remove(i);
+                    }
+                }
+
                 break;
         }
-        for (int i = 0; i < 2; i++) {
-            System.out.println(book1.viewAllPerson().get(i).lastname);
+        for(int i=0;i<2;i++){
+            System.out.println(book1.viewAllPerson().get(i).firstname);
         }
+
+
     }
 
 }
