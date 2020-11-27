@@ -14,102 +14,142 @@ class bookdetails{
     public void addcontact(contact obj) {
         contactDetails.add(obj);
     }
-    public ArrayList<contact> viewAllPerson(){
+    public ArrayList<contact> viewcontact(){
         return contactDetails;
     }
 }
 public class AddressBookMain {
+    static ArrayList<String> check=new ArrayList<String>();
     public static void main(String args[]) {
-        System.out.println(".......Welcome to Address Book.......");
+        System.out.println("..........Address Book Problem................");
         Scanner sc = new Scanner(System.in);
-        bookdetails book1 = new bookdetails();
-        for (int i = 0; i < 2; i++) {
-            contact c1 = new contact();
-            System.out.println("Enter First Name:");
-            c1.firstname = sc.nextLine();
-            System.out.println("Enter the last name: ");
-            c1.lastname = sc.nextLine();
-            System.out.println("Enter the address");
-            c1.address = sc.nextLine();
-            System.out.println("Enter the City: ");
-            c1.city = sc.nextLine();
-            System.out.println("Enter the State: ");
-            c1.state = sc.nextLine();
-            System.out.println("Enter the zip: ");
-            c1.zip = sc.nextInt();
-            System.out.println("Enter the mob.no: ");
-            c1.phoneno = sc.nextInt();
-            System.out.println("Enter the email: ");
-            c1.email = sc.next();
-            System.out.println("Thank You");
-            book1.addcontact(c1);
-        }
-
-        for (int i = 0; i < 2; i++) {
-            System.out.println(book1.viewAllPerson().get(i).firstname);
-        }
-
-        System.out.println("Edit or delete person details 1.Edit 2.delete");
-        int option = sc.nextInt();
-        System.out.println("Enter fname");
-        String nameofperson = sc.next();
-        switch (option) {
-            case 1:
-                for(int i=0;i<book1.viewAllPerson().size();i++){
-                    if(nameofperson.equalsIgnoreCase(book1.viewAllPerson().get(i).firstname)){
-                        System.out.println("1.FirstName"+" "+"2.Lastname"+"  "+"3.Address"+" "+"4.city"+" "+"5.state"+" "+"6.zip"+" "+"7.phone"+" "+"8.email");
-                        int choose = sc.nextInt();
-                        switch(choose) {
-                            case 1:
-                                System.out.println("New First Name:");
-                                book1.viewAllPerson().get(i).firstname = sc.next();
-                                break;
-                            case 2:
-                                System.out.println("New Last Name:");
-                                book1.viewAllPerson().get(i).lastname = sc.next();
-                                break;
-                            case 3:
-                                System.out.println("New Address:");
-                                book1.viewAllPerson().get(i).address = sc.next();
-                                break;
-                            case 4:
-                                System.out.println("New City:");
-                                book1.viewAllPerson().get(i).city = sc.next();
-                                break;
-                            case 5:
-                                System.out.println("New State:");
-                                book1.viewAllPerson().get(i).state = sc.next();
-                                break;
-                            case 6:
-                                System.out.println("New zip:");
-                                book1.viewAllPerson().get(i).zip = sc.nextInt();
-                                break;
-                            case 7:
-                                System.out.println("New phone no:");
-                                book1.viewAllPerson().get(i).phoneno = sc.nextInt();
-                                break;
-                            case 8:
-                                System.out.println("New email:");
-                                book1.viewAllPerson().get(i).email = sc.next();
-                                break;
+        HashMap<String, ArrayList> addbook=new HashMap<>();
+        int var=1;
+        int p=0;
+        while(var==1) {
+            System.out.println("1.new addressbook 2.Exit");
+            int select=sc.nextInt();
+            switch(select) {
+                case 1:
+                    System.out.println("Enter addressbook name");
+                    String addbookname=sc.next();
+                    for(int i=0;i<check.size();i++) {
+                        if(addbookname.equals(check.get(i))) {
+                            System.out.println("Sorry, Addressbook already exists");
+                            p=1;
                         }
                     }
-                }
-                break;
-            case 2 :
-                for(int i=0;i<book1.viewAllPerson().size();i++){
-                    if(nameofperson.equalsIgnoreCase(book1.viewAllPerson().get(i).firstname)){
-                        book1.viewAllPerson().remove(i);
+                    if(p==1) {
+                        break;
                     }
-                }
+                    System.out.println("Enter Number of person");
+                    int personno=sc.nextInt();
+                    bookdetails book1 = new bookdetails();
+                    for(int i=0;i<personno;i++) {
+                        contact c1 = new contact();
+                        System.out.println("Enter First Name:");
+                        c1.firstname = sc.next();
+                        System.out.println("Enter last name: ");
+                        c1.lastname = sc.next();
+                        System.out.println("Enter address");
+                        c1.address = sc.next();
+                        System.out.println("Enter City: ");
+                        c1.city = sc.next();
+                        System.out.println("Enter State: ");
+                        c1.state = sc.next();
+                        System.out.println("Enter zip: ");
+                        c1.zip = sc.nextInt();
+                        System.out.println("Enter phone number: ");
+                        c1.phoneno = sc.nextInt();
+                        System.out.println("Enter email id: ");
+                        c1.email = sc.next();
+                        System.out.println("End of contact");
+                        book1.addcontact(c1);
+                    }
+                    addbook.put(addbookname, book1.viewcontact());
 
-                break;
+                    System.out.println("Edit or delete person details 1.Edit 2.delete");
+                    int option = sc.nextInt();
+
+                    String nameofperson;
+                    switch (option) {
+                        case 1:
+                            System.out.println("Enter fname");
+                            nameofperson=sc.next();
+                            for(int i=0;i<book1.viewcontact().size();i++){
+                                if(nameofperson.equalsIgnoreCase(book1.viewcontact().get(i).firstname)){
+                                    System.out.println("1.FirstName"+" "+"2.Lastname"+"  "+"3.Address"+" "+"4.city"+" "+"5.state"+" "+"6.zip"+" "+"7.phone"+" "+"8.email");
+                                    int choose = sc.nextInt();
+                                    switch(choose) {
+                                        case 1:
+                                            System.out.println("New First Name:");
+                                            book1.viewcontact().get(i).firstname = sc.next();
+                                            break;
+                                        case 2:
+                                            System.out.println("New Last Name:");
+                                            book1.viewcontact().get(i).lastname = sc.next();
+                                            break;
+                                        case 3:
+                                            System.out.println("New Address:");
+                                            book1.viewcontact().get(i).address = sc.next();
+                                            break;
+                                        case 4:
+                                            System.out.println("New City:");
+                                            book1.viewcontact().get(i).city = sc.next();
+                                            break;
+                                        case 5:
+                                            System.out.println("New State:");
+                                            book1.viewcontact().get(i).state = sc.next();
+                                            break;
+                                        case 6:
+                                            System.out.println("New zip:");
+                                            book1.viewcontact().get(i).zip = sc.nextInt();
+                                            break;
+                                        case 7:
+                                            System.out.println("New phone no:");
+                                            book1.viewcontact().get(i).phoneno = sc.nextInt();
+                                            break;
+                                        case 8:
+                                            System.out.println("New email:");
+                                            book1.viewcontact().get(i).email = sc.next();
+                                            break;
+                                    }
+                                }
+                            }
+                            break;
+                        case 2 :
+                            System.out.println("Enter firstname");
+                            nameofperson=sc.next();
+                            for(int i=0;i<book1.viewcontact().size();i++){
+                                if(nameofperson.equalsIgnoreCase(book1.viewcontact().get(i).firstname)){
+                                    book1.viewcontact().remove(i);
+                                }
+                            }
+                            break;
+                        case 3:
+                            break;
+                    }
+                    check.add(addbookname);
+
+                    for(int i=0;i<book1.viewcontact().size();i++){
+                        System.out.println("Details of person "+(i+1));
+                        System.out.println(book1.viewcontact().get(i).firstname);
+                        System.out.println(book1.viewcontact().get(i).lastname);
+                        System.out.println(book1.viewcontact().get(i).address);
+                        System.out.println(book1.viewcontact().get(i).city);
+                        System.out.println(book1.viewcontact().get(i).state);
+                        System.out.println(book1.viewcontact().get(i).zip);
+                        System.out.println(book1.viewcontact().get(i).phoneno);
+                        System.out.println(book1.viewcontact().get(i).email);
+                    }
+                    var = 1;
+                    break;
+                case 2:
+                    System.out.println("Thank You");
+                    var = 0;
+                    break;
+
+            }
         }
-        for(int i=0;i<2;i++){
-            System.out.println(book1.viewAllPerson().get(i).firstname);
-        }
-
-
     }
-
 }
