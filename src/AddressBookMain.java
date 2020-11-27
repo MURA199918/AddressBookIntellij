@@ -74,10 +74,7 @@ public class AddressBookMain {
                     if(personno>=2) {
                         for (int i = 0; i < personno-1; i++) {
                             contact c2 = new contact();
-                            System.out.println("Enter First Name:");
-                            c2.firstname = sc.next();
                             while (c2.firstname != check1.get(i)) {
-                                System.out.println("Person already exists");
                                 System.out.println("Enter First Name:");
                                 c2.firstname = sc.next();
                                 break;
