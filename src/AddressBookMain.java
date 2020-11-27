@@ -195,19 +195,25 @@ public class AddressBookMain {
         }
         System.out.println("Enter city to search");
         String citysearch=sc.next();
+        int citycount=0;
         for (Map.Entry<String,String> entry : checkcity.entrySet()){
             if(entry.getValue().equals(citysearch)){
+                citycount++;
                 System.out.println("People in city "+citysearch);
                 System.out.println(entry.getKey());
             }
         }
+        System.out.println("Number of people in city "+citysearch+" is "+citycount);
         System.out.println("Enter state to search");
         String statesearch=sc.next();
+        int statecount=0;
         for(Map.Entry<String,String> entry : checkstate.entrySet()){
             if(entry.getValue().equals(statesearch)){
+                statecount++;
                 System.out.println("People in state "+statesearch);
                 System.out.println(entry.getKey());
             }
         }
+        System.out.println("Number of people in state "+statesearch+" is "+statecount);
     }
 }
