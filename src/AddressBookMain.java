@@ -1,4 +1,7 @@
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 class contact{
     String firstname;
     String lastname;
@@ -71,10 +74,11 @@ public class AddressBookMain {
                     checkcity.put(c1.firstname, c1.city);
                     checkstate.put(c1.firstname,c1.state);
                     check1.add(c1.firstname);
+                    List<String> listwithoutduplicates = check1.stream().distinct().collect(Collectors.toList());
                     if(personno>=2) {
                         for (int i = 0; i < personno-1; i++) {
                             contact c2 = new contact();
-                            while (c2.firstname != check1.get(i)) {
+                            while (c2.firstname != listwithoutduplicates.get(i)) {
                                 System.out.println("Enter First Name:");
                                 c2.firstname = sc.next();
                                 break;
@@ -98,6 +102,7 @@ public class AddressBookMain {
                             checkcity.put(c2.firstname, c2.city);
                             checkstate.put(c2.firstname,c2.state);
                             check1.add(c2.firstname);
+                            listwithoutduplicates = check1.stream().distinct().collect(Collectors.toList());
                         }
                     }
                     addbook.put(addbookname, book1.viewcontact());
@@ -120,13 +125,17 @@ public class AddressBookMain {
                                             while(x==1) {
                                                 System.out.println("New First Name:");
                                                 book1.viewcontact().get(i).firstname = sc.next();
-                                                if (book1.viewcontact().get(i).firstname.equals(check1.get(i))) {
+                                                if (book1.viewcontact().get(i).firstname.equals(listwithoutduplicates.get(i))) {
                                                     x = 1;
                                                 }
                                                 else
                                                     x=0;
                                                     break;
                                             }
+                                            checkcity.put(book1.viewcontact().get(i).firstname,book1.viewcontact().get(i).city);
+                                            checkstate.put(book1.viewcontact().get(i).firstname,book1.viewcontact().get(i).state);
+                                            checkcity.remove(nameofperson,book1.viewcontact().get(i).city);
+                                            checkstate.remove(nameofperson,book1.viewcontact().get(i).state);
                                             break;
                                         case 2:
                                             System.out.println("New Last Name:");
@@ -139,10 +148,12 @@ public class AddressBookMain {
                                         case 4:
                                             System.out.println("New City:");
                                             book1.viewcontact().get(i).city = sc.next();
+                                            checkcity.put(nameofperson,book1.viewcontact().get(i).city);
                                             break;
                                         case 5:
                                             System.out.println("New State:");
                                             book1.viewcontact().get(i).state = sc.next();
+                                            checkstate.put(nameofperson,book1.viewcontact().get(i).state);
                                             break;
                                         case 6:
                                             System.out.println("New zip:");
@@ -195,6 +206,11 @@ public class AddressBookMain {
         }
         System.out.println("Enter city to search");
         String citysearch=sc.next();
+        checkcity.entrySet().stream().forEach(e->{
+            if(e.getValue().equals(citysearch)){
+                System.out.println(e.getKey());
+            }
+        });
         for (Map.Entry<String,String> entry : checkcity.entrySet()){
             if(entry.getValue().equals(citysearch)){
                 System.out.println(entry.getKey());
@@ -202,6 +218,11 @@ public class AddressBookMain {
         }
         System.out.println("Enter state to search");
         String statesearch=sc.next();
+        checkcity.entrySet().stream().forEach(e->{
+            if(e.getValue().equals(statesearch)){
+                System.out.println(e.getKey());
+            }
+        });
         for(Map.Entry<String,String> entry : checkstate.entrySet()){
             if(entry.getValue().equals(statesearch)){
                 System.out.println(entry.getKey());
