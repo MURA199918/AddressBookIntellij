@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.stream.Collectors;
+
 class contact{
     String firstname;
     String lastname;
@@ -71,10 +73,11 @@ public class AddressBookMain {
                     checkcity.put(c1.firstname, c1.city);
                     checkstate.put(c1.firstname,c1.state);
                     check1.add(c1.firstname);
+                    List<String> listwithoutduplicates = check1.stream().distinct().collect(Collectors.toList());
                     if(personno>=2) {
                         for (int i = 0; i < personno-1; i++) {
                             contact c2 = new contact();
-                            while (c2.firstname != check1.get(i)) {
+                            while (c2.firstname != listwithoutduplicates.get(i)) {
                                 System.out.println("Enter First Name:");
                                 c2.firstname = sc.next();
                                 break;
@@ -98,6 +101,7 @@ public class AddressBookMain {
                             checkcity.put(c2.firstname, c2.city);
                             checkstate.put(c2.firstname,c2.state);
                             check1.add(c2.firstname);
+                            listwithoutduplicates = check1.stream().distinct().collect(Collectors.toList());
                         }
                     }
                     addbook.put(addbookname, book1.viewcontact());
@@ -120,7 +124,7 @@ public class AddressBookMain {
                                             while(x==1) {
                                                 System.out.println("New First Name:");
                                                 book1.viewcontact().get(i).firstname = sc.next();
-                                                if (book1.viewcontact().get(i).firstname.equals(check1.get(i))) {
+                                                if (book1.viewcontact().get(i).firstname.equals(listwithoutduplicates.get(i))) {
                                                     x = 1;
                                                 }
                                                 else
@@ -201,25 +205,41 @@ public class AddressBookMain {
         }
         System.out.println("Enter city to search");
         String citysearch=sc.next();
-        int citycount=0;
-        System.out.println("People in city "+citysearch);
-        for (Map.Entry<String,String> entry : checkcity.entrySet()){
-            if(entry.getValue().equals(citysearch)){
-                citycount++;
-                System.out.println(entry.getKey());
+        checkcity.entrySet().stream().forEach(e->{
+            if(e.getValue().equals(citysearch)){
+                System.out.println("People in city "+citysearch);
+                System.out.println(e.getKey());
             }
-        }
+        });
+        long citycount= checkcity.entrySet().stream().filter(x->x.getValue().equals(citysearch)).count();
         System.out.println("Number of people in city "+citysearch+" is "+citycount);
+        //int citycount=0;
+        //System.out.println("People in city "+citysearch);
+        //for (Map.Entry<String,String> entry : checkcity.entrySet()){
+            //if(entry.getValue().equals(citysearch)){
+              //  citycount++;
+            //    System.out.println(entry.getKey());
+          //  }
+        //}
+        //System.out.println("Number of people in city "+citysearch+" is "+citycount);
         System.out.println("Enter state to search");
         String statesearch=sc.next();
-        int statecount=0;
-        System.out.println("People in state "+statesearch);
-        for(Map.Entry<String,String> entry : checkstate.entrySet()){
-            if(entry.getValue().equals(statesearch)){
-                statecount++;
-                System.out.println(entry.getKey());
+        checkstate.entrySet().stream().forEach(e->{
+            if(e.getValue().equals(statesearch)){
+                System.out.println("People in state "+statesearch);
+                System.out.println(e.getKey());
             }
-        }
+        });
+        long statecount = checkstate.entrySet().stream().filter(x->x.getValue().equals(statesearch)).count();
         System.out.println("Number of people in state "+statesearch+" is "+statecount);
+        //int statecount=0;
+        //System.out.println("People in state "+statesearch);
+        //for(Map.Entry<String,String> entry : checkstate.entrySet()){
+            //if(entry.getValue().equals(statesearch)){
+              //  statecount++;
+            //    System.out.println(entry.getKey());
+          //  }
+        //}
+        //System.out.println("Number of people in state "+statesearch+" is "+statecount);
     }
 }
