@@ -2,6 +2,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 class contact{
+    public static Comparator<? super contact> firstnameComparator;
     String firstname;
     String lastname;
     String address;
@@ -54,6 +55,7 @@ public class AddressBookMain {
                     contact c1 = new contact();
                     System.out.println("Enter First Name:");
                     c1.firstname = sc.next();
+                    String fname=c1.firstname;
                     System.out.println("Enter last name: ");
                     c1.lastname = sc.next();
                     System.out.println("Enter address");
@@ -184,6 +186,7 @@ public class AddressBookMain {
                     }
                     check.add(addbookname);
 
+
                     for (int i = 0; i < book1.viewcontact().size(); i++) {
                         System.out.println("Details of person " + (i + 1));
                         System.out.println(book1.viewcontact().get(i).firstname);
@@ -205,9 +208,9 @@ public class AddressBookMain {
         }
         System.out.println("Enter city to search");
         String citysearch=sc.next();
+        System.out.println("People in city "+citysearch);
         checkcity.entrySet().stream().forEach(e->{
             if(e.getValue().equals(citysearch)){
-                System.out.println("People in city "+citysearch);
                 System.out.println(e.getKey());
             }
         });
@@ -224,9 +227,9 @@ public class AddressBookMain {
         //System.out.println("Number of people in city "+citysearch+" is "+citycount);
         System.out.println("Enter state to search");
         String statesearch=sc.next();
+        System.out.println("People in state "+statesearch);
         checkstate.entrySet().stream().forEach(e->{
             if(e.getValue().equals(statesearch)){
-                System.out.println("People in state "+statesearch);
                 System.out.println(e.getKey());
             }
         });
@@ -241,5 +244,12 @@ public class AddressBookMain {
           //  }
         //}
         //System.out.println("Number of people in state "+statesearch+" is "+statecount);
+
+        for(Map.Entry entry : addbook.entrySet()){
+            List<contact> view=new ArrayList<>();
+            view=((bookdetails) entry.getValue()).viewcontact();
+            Collections.sort(view,contact.firstnameComparator);
+            System.out.println(entry.getKey()+" "+view);
+        }
     }
 }
