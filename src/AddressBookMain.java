@@ -10,6 +10,9 @@ class contact{
     int zip;
     int phoneno;
     String email;
+    public String toString(){
+        return String.format(firstname+" "+lastname+" "+address+" "+city+" "+state+" "+zip+" "+phoneno+" "+email);
+    }
 }
 class bookdetails{
     ArrayList<contact> contactDetails = new ArrayList<>();
@@ -245,7 +248,7 @@ public class AddressBookMain {
         //System.out.println("Number of people in state "+statesearch+" is "+statecount);
 
         for(Map.Entry entry : addbook.entrySet()){
-            System.out.println(entry.getKey()+" "+entry.getValue());
+            System.out.println(entry.getKey()+" "+entry.getValue().toString());
         }
     }
 }
