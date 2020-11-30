@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.stream.Collectors;
+
 class contact{
     String firstname;
     String lastname;
@@ -66,13 +68,11 @@ public class AddressBookMain {
                     System.out.println("End of contact");
                     book1.addcontact(c1);
                     check1.add(c1.firstname);
+                    List<String> listwithoutduplicates = check1.stream().distinct().collect(Collectors.toList());
                     if(personno>=2) {
                         for (int i = 0; i < personno-1; i++) {
                             contact c2 = new contact();
-                            System.out.println("Enter First Name:");
-                            c2.firstname = sc.next();
-                            while (c2.firstname != check1.get(i)) {
-                                System.out.println("Person already exists");
+                            while (c2.firstname != listwithoutduplicates.get(i)) {
                                 System.out.println("Enter First Name:");
                                 c2.firstname = sc.next();
                                 break;
@@ -94,6 +94,7 @@ public class AddressBookMain {
                             System.out.println("End of contact");
                             book1.addcontact(c2);
                             check1.add(c2.firstname);
+                            listwithoutduplicates = check1.stream().distinct().collect(Collectors.toList());
                         }
                     }
                     addbook.put(addbookname, book1.viewcontact());
@@ -112,9 +113,17 @@ public class AddressBookMain {
                                     int choose = sc.nextInt();
                                     switch (choose) {
                                         case 1:
-                                            System.out.println("New First Name:");
-                                            book1.viewcontact().get(i).firstname = sc.next();
-                                            break;
+                                            int x=1;
+                                            while(x==1) {
+                                                System.out.println("New First Name:");
+                                                book1.viewcontact().get(i).firstname = sc.next();
+                                                if (book1.viewcontact().get(i).firstname.equals(listwithoutduplicates.get(i))) {
+                                                    x = 1;
+                                                }
+                                                else
+                                                    x=0;
+                                                break;
+                                            }
                                         case 2:
                                             System.out.println("New Last Name:");
                                             book1.viewcontact().get(i).lastname = sc.next();
