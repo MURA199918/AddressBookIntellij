@@ -2,7 +2,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 class contact{
-    public static Comparator<? super contact> firstnameComparator;
     String firstname;
     String lastname;
     String address;
@@ -106,7 +105,7 @@ public class AddressBookMain {
                             listwithoutduplicates = check1.stream().distinct().collect(Collectors.toList());
                         }
                     }
-                    addbook.put(addbookname, book1.viewcontact());
+                    //addbook.put(addbookname, book1.viewcontact());
 
                     System.out.println("Edit or delete person details 1.Edit 2.delete");
                     int option = sc.nextInt();
@@ -185,7 +184,7 @@ public class AddressBookMain {
                             break;
                     }
                     check.add(addbookname);
-
+                    addbook.put(addbookname,book1.viewcontact());
 
                     for (int i = 0; i < book1.viewcontact().size(); i++) {
                         System.out.println("Details of person " + (i + 1));
@@ -246,10 +245,7 @@ public class AddressBookMain {
         //System.out.println("Number of people in state "+statesearch+" is "+statecount);
 
         for(Map.Entry entry : addbook.entrySet()){
-            List<contact> view=new ArrayList<>();
-            view=((bookdetails) entry.getValue()).viewcontact();
-            Collections.sort(view,contact.firstnameComparator);
-            System.out.println(entry.getKey()+" "+view);
+            System.out.println(entry.getKey()+" "+entry.getValue());
         }
     }
 }
