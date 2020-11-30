@@ -11,7 +11,7 @@ class contact{
     int phoneno;
     String email;
     public String toString(){
-        return String.format(firstname+" "+lastname+" "+address+" "+city+" "+state+" "+zip+" "+phoneno+" "+email);
+        return String.format("FirstName: "+firstname+" "+"LastName: "+lastname+" "+"Address: "+address+" "+"City: "+city+" "+"State: "+state+" "+"Zip: "+zip+" "+"PhoneNumber: "+phoneno+" "+"EmailID: "+email);
     }
 }
 class bookdetails{
