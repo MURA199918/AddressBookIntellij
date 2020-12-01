@@ -63,21 +63,22 @@ class contact{
     }
 }
 class bookdetails{
-    ArrayList<contact> contactDetails = new ArrayList<>();
+    List<contact> contactDetails = new ArrayList<>();
     public void addcontact(contact obj) {
         contactDetails.add(obj);
     }
-    public ArrayList<contact> viewcontact(){
+    public List<contact> viewcontact(){
         return contactDetails;
     }
 }
+
 public class AddressBookMain {
     static ArrayList<String> check=new ArrayList<>();
     public static void main(String[] args) {
         bookdetails book1=new bookdetails();
         System.out.println("..........Address Book Problem................");
         Scanner sc = new Scanner(System.in);
-        HashMap<String, ArrayList> addbook = new HashMap<>();
+        HashMap<String, List<contact>> addbook = new HashMap<>();
         HashMap<String, String> checkcity=new HashMap<>();
         HashMap<String, String> checkstate=new HashMap<>();
         int var = 1;
@@ -278,7 +279,10 @@ public class AddressBookMain {
         System.out.println("Number of people in state "+statesearch+" is "+statecount);
 
         for(Map.Entry entry : addbook.entrySet()){
-            List<contact> list = ((bookdetails)entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getFirstname)).collect(Collectors.toList());
+            System.out.println(entry.getKey()+" "+entry.getValue().toString());
+        }
+        for(Map.Entry entry : addbook.entrySet()){
+            List<contact> list = (((bookdetails)entry.getValue()).viewcontact()).stream().sorted(Comparator.comparing(contact::getFirstname)).collect(Collectors.toList());
             System.out.println(entry.getKey()+" "+list.toString());
         }
     }
