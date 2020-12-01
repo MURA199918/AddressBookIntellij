@@ -10,6 +10,54 @@ class contact{
     int zip;
     int phoneno;
     String email;
+    public String getFirstname(){
+        return firstname;
+    }
+    public void setFirstname(){
+        this.firstname=firstname;
+    }
+    public String getLastname(){
+        return lastname;
+    }
+    public void setLastname(){
+        this.lastname=lastname;
+    }
+    public String getAddress(){
+        return address;
+    }
+    public void setAddress(){
+        this.address=address;
+    }
+    public String getCity(){
+        return city;
+    }
+    public void setCity(){
+        this.city=city;
+    }
+    public String getState(){
+        return state;
+    }
+    public void setState(){
+        this.state=state;
+    }
+    public int getZip(){
+        return zip;
+    }
+    public void setZip(){
+        this.zip=zip;
+    }
+    public int getPhoneno(){
+        return phoneno;
+    }
+    public void setPhoneno(){
+        this.phoneno=phoneno;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public void setEmail(){
+        this.email=email;
+    }
     public String toString(){
         return String.format("FirstName: "+firstname+" "+"LastName: "+lastname+" "+"Address: "+address+" "+"City: "+city+" "+"State: "+state+" "+"Zip: "+zip+" "+"PhoneNumber: "+phoneno+" "+"EmailID: "+email);
     }
@@ -56,22 +104,21 @@ public class AddressBookMain {
                     ArrayList<String> check1=new ArrayList<>();
                     contact c1 = new contact();
                     System.out.println("Enter First Name:");
-                    c1.firstname = sc.next();
-                    String fname=c1.firstname;
+                    c1.firstname=sc.next();
                     System.out.println("Enter last name: ");
-                    c1.lastname = sc.next();
+                    c1.lastname=sc.next();
                     System.out.println("Enter address");
-                    c1.address = sc.next();
+                    c1.address=sc.next();
                     System.out.println("Enter City: ");
-                    c1.city = sc.next();
+                    c1.city=sc.next();
                     System.out.println("Enter State: ");
-                    c1.state = sc.next();
+                    c1.state=sc.next();
                     System.out.println("Enter zip: ");
-                    c1.zip = sc.nextInt();
+                    c1.zip=sc.nextInt();
                     System.out.println("Enter phone number: ");
-                    c1.phoneno = sc.nextInt();
+                    c1.phoneno=sc.nextInt();
                     System.out.println("Enter email id: ");
-                    c1.email = sc.next();
+                    c1.email=sc.next();
                     System.out.println("End of contact");
                     book1.addcontact(c1);
                     checkcity.put(c1.firstname, c1.city);
@@ -135,10 +182,10 @@ public class AddressBookMain {
                                                     x=0;
                                                     break;
                                             }
-                                            checkcity.put(book1.viewcontact().get(i).firstname,book1.viewcontact().get(i).city);
-                                            checkstate.put(book1.viewcontact().get(i).firstname,book1.viewcontact().get(i).state);
-                                            checkcity.remove(nameofperson,book1.viewcontact().get(i).city);
-                                            checkstate.remove(nameofperson,book1.viewcontact().get(i).state);
+                                            checkcity.put(book1.viewcontact().get(i).firstname,book1.viewcontact().get(i).getCity());
+                                            checkstate.put(book1.viewcontact().get(i).firstname,book1.viewcontact().get(i).getState());
+                                            checkcity.remove(nameofperson,book1.viewcontact().get(i).getCity());
+                                            checkstate.remove(nameofperson,book1.viewcontact().get(i).getState());
                                             break;
                                         case 2:
                                             System.out.println("New Last Name:");
@@ -218,15 +265,7 @@ public class AddressBookMain {
         });
         long citycount= checkcity.entrySet().stream().filter(x->x.getValue().equals(citysearch)).count();
         System.out.println("Number of people in city "+citysearch+" is "+citycount);
-        //int citycount=0;
-        //System.out.println("People in city "+citysearch);
-        //for (Map.Entry<String,String> entry : checkcity.entrySet()){
-            //if(entry.getValue().equals(citysearch)){
-              //  citycount++;
-            //    System.out.println(entry.getKey());
-          //  }
-        //}
-        //System.out.println("Number of people in city "+citysearch+" is "+citycount);
+
         System.out.println("Enter state to search");
         String statesearch=sc.next();
         System.out.println("People in state "+statesearch);
@@ -237,18 +276,10 @@ public class AddressBookMain {
         });
         long statecount = checkstate.entrySet().stream().filter(x->x.getValue().equals(statesearch)).count();
         System.out.println("Number of people in state "+statesearch+" is "+statecount);
-        //int statecount=0;
-        //System.out.println("People in state "+statesearch);
-        //for(Map.Entry<String,String> entry : checkstate.entrySet()){
-            //if(entry.getValue().equals(statesearch)){
-              //  statecount++;
-            //    System.out.println(entry.getKey());
-          //  }
-        //}
-        //System.out.println("Number of people in state "+statesearch+" is "+statecount);
 
         for(Map.Entry entry : addbook.entrySet()){
-            System.out.println(entry.getKey()+" "+entry.getValue().toString());
+            List<contact> list = ((bookdetails)entry.getValue()).viewcontact().stream().sorted(Comparator.comparing(contact::getFirstname)).collect(Collectors.toList());
+            System.out.println(entry.getKey()+" "+list.toString());
         }
     }
 }
