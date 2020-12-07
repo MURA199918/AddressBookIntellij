@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -69,6 +73,41 @@ class bookdetails{
     }
     public ArrayList<contact> viewcontact(){
         return contactDetails;
+    }
+
+    public static String ADDRESS_FILE = "Adress-file.txt";
+    public static void writeData(List<contact> contactList){
+        StringBuffer empBuffer = new StringBuffer();
+        contactList.forEach(employee ->{
+            String employeeDataString = employee.toString().concat("\n");
+            empBuffer.append(employeeDataString);
+        });
+
+        try {
+            Files.write(Paths.get(ADDRESS_FILE), empBuffer.toString().getBytes());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    public static void printData() {
+        try{
+            Files.lines(new File(ADDRESS_FILE).toPath()).forEach(System.out::println);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static List<contact> readData(){
+        List<contact> contactList = new ArrayList<>();
+        try{
+            Files.lines(new File(ADDRESS_FILE).toPath())
+                    .map(line->line.trim())
+                    .forEach(line->System.out.println(line));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return contactList;
     }
 }
 public class AddressBookMain {
@@ -235,6 +274,12 @@ public class AddressBookMain {
                     }
                     check.add(addbookname);
                     addbook.put(addbookname,book1.viewcontact());
+
+                    System.out.println("Writing details into file");
+                    bookdetails.writeData(book1.viewcontact());
+                    bookdetails.printData();
+                    System.out.println("Reading details from file");
+                    bookdetails.readData();
 
                     for (int i = 0; i < book1.viewcontact().size(); i++) {
                         System.out.println("Details of person " + (i + 1));
